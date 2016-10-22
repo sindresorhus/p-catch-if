@@ -1,0 +1,56 @@
+{
+  "name": "p-catch-if",
+  "version": "0.0.0",
+  "description": "Conditional promise catch handler",
+  "license": "MIT",
+  "repository": "sindresorhus/p-catch-if",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "promise",
+    "catch",
+    "if",
+    "conditional",
+    "cond",
+    "iff",
+    "chain",
+    "throw",
+    "error",
+    "reject",
+    "rejected",
+    "handler",
+    "filter",
+    "filtered",
+    "predicate",
+    "exception",
+    "thunk",
+    "function",
+    "async",
+    "await",
+    "promises",
+    "combinator",
+    "bluebird"
+  ],
+  "dependencies": {
+    "is-error-constructor": "^1.0.0"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "xo": "*"
+  },
+  "xo": {
+    "esnext": true
+  }
+}
