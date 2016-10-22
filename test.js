@@ -80,6 +80,14 @@ test('predicate function returns promise that resolves to false', async t => {
 	t.is(result, fixtureErr);
 });
 
+test('predicate function returns promise that resolves to truthy', async t => {
+	const result = await Promise.reject(fixtureErr)
+		.catch(m(async () => 1, () => fixture))
+		.catch(err => err);
+
+	t.is(result, fixtureErr);
+});
+
 test('catch handler is required', async t => {
 	t.throws(Promise.reject(fixtureErr).catch(m(true)));
 });
