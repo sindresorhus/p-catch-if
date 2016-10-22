@@ -2,6 +2,8 @@
 
 > Conditional promise catch handler
 
+Useful for handling only some types of errors and let the rest pass through.
+
 
 ## Install
 
