@@ -89,5 +89,5 @@ test('predicate function returns promise that resolves to truthy', async t => {
 });
 
 test('catch handler is required', async t => {
-	t.throws(Promise.reject(fixtureErr).catch(m(true)));
+	await t.throws(Promise.reject(fixtureErr).catch(m(true)));
 });
