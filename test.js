@@ -57,6 +57,13 @@ test('predicate function returns true', async t => {
 	t.is(result, fixture);
 });
 
+test('predicate function that returns true should pass error to catch handler', async t => {
+	const result = await Promise.reject(fixtureErr)
+		.catch(m(() => true, err => err));
+
+	t.is(result, fixtureErr);
+});
+
 test('predicate function returns false', async t => {
 	const result = await Promise.reject(fixtureErr)
 		.catch(m(() => false, () => fixture))
