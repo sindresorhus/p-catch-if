@@ -1,6 +1,6 @@
 {
   "name": "p-catch-if",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Conditional promise catch handler",
   "license": "MIT",
   "repository": "sindresorhus/p-catch-if",
