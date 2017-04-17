@@ -17,7 +17,7 @@ module.exports = (predicate, fn) => err => {
 	} else if (typeof predicate === 'function') {
 		return Promise.resolve(err)
 			.then(predicate)
-			.then(val => val === true ? fn() : Promise.reject(err));
+			.then(val => val === true ? fn(err) : Promise.reject(err));
 	}
 
 	throw err;
