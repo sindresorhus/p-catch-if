@@ -1,100 +1,100 @@
 import test from 'ava';
-import m from './';
+import pCatchIf from '.';
 
 const fixture = Symbol('fixture');
-const fixtureErr = new Error('fixture');
-const fixtureRangeErr = new RangeError('fixture-range');
+const fixtureError = new Error('fixture');
+const fixtureRangeError = new RangeError('fixture-range');
 
 test('predicate is true', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(true, () => fixture));
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(true, () => fixture));
 
 	t.is(result, fixture);
 });
 
 test('predicate is false', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(false, () => fixture))
-		.catch(err => err);
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(false, () => fixture))
+		.catch(error => error);
 
-	t.is(result, fixtureErr);
+	t.is(result, fixtureError);
 });
 
 test('predicate is error constructor and matches error', async t => {
-	const result = await Promise.reject(fixtureRangeErr)
-		.catch(m(RangeError, () => fixture));
+	const result = await Promise.reject(fixtureRangeError)
+		.catch(pCatchIf(RangeError, () => fixture));
 
 	t.is(result, fixture);
 });
 
 test('predicate is error constructor and does not match error', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(RangeError, () => fixture))
-		.catch(err => err);
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(RangeError, () => fixture))
+		.catch(error => error);
 
-	t.is(result, fixtureErr);
+	t.is(result, fixtureError);
 });
 
 test('predicate is array of error constructors and matches error', async t => {
-	const result = await Promise.reject(fixtureRangeErr)
-		.catch(m([ReferenceError, RangeError], () => fixture));
+	const result = await Promise.reject(fixtureRangeError)
+		.catch(pCatchIf([ReferenceError, RangeError], () => fixture));
 
 	t.is(result, fixture);
 });
 
 test('predicate is array of error constructors and does not match error', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m([ReferenceError, RangeError], () => fixture))
-		.catch(err => err);
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf([ReferenceError, RangeError], () => fixture))
+		.catch(error => error);
 
-	t.is(result, fixtureErr);
+	t.is(result, fixtureError);
 });
 
 test('predicate function returns true', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(() => true, () => fixture));
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(() => true, () => fixture));
 
 	t.is(result, fixture);
 });
 
 test('predicate function that returns true should pass error to catch handler', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(() => true, err => err));
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(() => true, error => error));
 
-	t.is(result, fixtureErr);
+	t.is(result, fixtureError);
 });
 
 test('predicate function returns false', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(() => false, () => fixture))
-		.catch(err => err);
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(() => false, () => fixture))
+		.catch(error => error);
 
-	t.is(result, fixtureErr);
+	t.is(result, fixtureError);
 });
 
 test('predicate function returns promise that resolves to true', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(async () => true, () => fixture));
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(async () => true, () => fixture));
 
 	t.is(result, fixture);
 });
 
 test('predicate function returns promise that resolves to false', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(async () => false, () => fixture))
-		.catch(err => err);
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(async () => false, () => fixture))
+		.catch(error => error);
 
-	t.is(result, fixtureErr);
+	t.is(result, fixtureError);
 });
 
 test('predicate function returns promise that resolves to truthy', async t => {
-	const result = await Promise.reject(fixtureErr)
-		.catch(m(async () => 1, () => fixture))
-		.catch(err => err);
+	const result = await Promise.reject(fixtureError)
+		.catch(pCatchIf(async () => 1, () => fixture))
+		.catch(error => error);
 
-	t.is(result, fixtureErr);
+	t.is(result, fixtureError);
 });
 
 test('catch handler is required', async t => {
-	await t.throws(Promise.reject(fixtureErr).catch(m(true)));
+	await t.throwsAsync(Promise.reject(fixtureError).catch(pCatchIf(true)));
 });

@@ -1,24 +1,35 @@
 'use strict';
+
 const isErrorConstructor = require('is-error-constructor');
 
-module.exports = (predicate, fn) => err => {
-	if (typeof fn !== 'function') {
+const pCatchIf = (predicate, catchHandler) => error => {
+	if (typeof catchHandler !== 'function') {
 		throw new TypeError('Expected a catch handler');
 	}
 
-	if (typeof predicate === 'boolean') {
-		if (predicate === true) {
-			return fn(err);
-		}
-	} else if (Array.isArray(predicate) || isErrorConstructor(predicate)) {
-		if ([].concat(predicate).some(x => err instanceof x)) {
-			return fn(err);
-		}
-	} else if (typeof predicate === 'function') {
-		return Promise.resolve(err)
-			.then(predicate)
-			.then(val => val === true ? fn(err) : Promise.reject(err));
+	if (predicate === true) {
+		return catchHandler(error);
 	}
 
-	throw err;
+	if (Array.isArray(predicate) || isErrorConstructor(predicate)) {
+		if ([]
+			.concat(predicate)
+			.some(errorConstructor => error instanceof errorConstructor)) {
+			return catchHandler(error);
+		}
+	} else if (typeof predicate === 'function') {
+		return (async () => {
+			const value = await predicate(error);
+			if (value === true) {
+				return catchHandler(error);
+			}
+
+			throw error;
+		})();
+	}
+
+	throw error;
 };
+
+module.exports = pCatchIf;
+module.exports.default = pCatchIf;
