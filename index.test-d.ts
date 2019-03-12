@@ -3,7 +3,7 @@ import pCatchIf from '.';
 
 class MyError extends Error {}
 
-// Predicate is an ErrorConstructor
+// Predicate is an `ErrorConstructor`
 expectType<(error: MyError) => string>(
 	pCatchIf(MyError, error => {
 		expectType<MyError>(error);
@@ -11,7 +11,7 @@ expectType<(error: MyError) => string>(
 	})
 );
 
-// Predicate is an ErrorConstructor[]
+// Predicate is an `ErrorConstructor[]`
 expectType<(error: MyError) => string>(
 	pCatchIf([MyError, Error], error => {
 		expectType<Error>(error);
@@ -19,7 +19,7 @@ expectType<(error: MyError) => string>(
 	})
 );
 
-// Predicate is a boolean
+// Predicate is a `boolean`
 expectType<(error: MyError) => string>(
 	pCatchIf(true, error => {
 		expectType<Error>(error);
@@ -27,7 +27,7 @@ expectType<(error: MyError) => string>(
 	})
 );
 
-// Predicate is a function returning a boolean
+// Predicate is a function returning a `boolean`
 expectType<(error: MyError) => string>(
 	pCatchIf(
 		error => {
@@ -41,7 +41,7 @@ expectType<(error: MyError) => string>(
 	)
 );
 
-// Predicate is a function returning a Promise<boolean>
+// Predicate is a function returning a `Promise<boolean>`
 expectType<(error: MyError) => string>(
 	pCatchIf(
 		error => {

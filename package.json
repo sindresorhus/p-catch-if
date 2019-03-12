@@ -45,7 +45,7 @@
 		"bluebird"
 	],
 	"dependencies": {
-		"is-error-constructor": "^1.0.0"
+		"is-error-constructor": "^2.0.0"
 	},
 	"devDependencies": {
 		"ava": "^1.3.1",

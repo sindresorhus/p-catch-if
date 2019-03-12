@@ -8,7 +8,7 @@ Useful for handling only some types of errors and let the rest pass through.
 ## Install
 
 ```
-$ npm install --save p-catch-if
+$ npm install p-catch-if
 ```
 
 
@@ -17,25 +17,25 @@ $ npm install --save p-catch-if
 ```js
 const pCatchIf = require('p-catch-if');
 
-// error constructor
+// Error constructor
 getData().catch(pCatchIf(TimeoutError, () => retry(getData)));
 
-// multiple error constructors
+// Multiple error constructors
 getData().catch(pCatchIf([NetworkError, TimeoutError], () => retry(getData)));
 
-// boolean
-getData().catch(pCatchIf(isProduction, err => recordError(err)));
+// Boolean
+getData().catch(pCatchIf(isProduction, error => recordError(error)));
 
-// function
-const hasUnicornMessage = err => err.message.includes('unicorn');
+// Function
+const hasUnicornMessage = error => error.message.includes('unicorn');
 getData().catch(pCatchIf(hasUnicornMessage, console.error));
 
-// promise-returning function
-const handler = err => sendError(err).then(checkResults);
+// Promise-returning function
+const handler = error => sendError(error).then(checkResults);
 getData().catch(pCatchIf(handler, console.error));
 
-// can also be nested
-const validateMessage = err => err.message === 'Too many rainbows';
+// Can also be nested
+const validateMessage = error => error.message === 'Too many rainbows';
 getData().catch(pCatchIf(UnicornError, pCatchIf(validateMessage, console.error)));
 ```
 
@@ -44,7 +44,7 @@ getData().catch(pCatchIf(UnicornError, pCatchIf(validateMessage, console.error))
 
 ### pCatchIf(predicate, catchHandler)
 
-Returns a [thunk](https://en.m.wikipedia.org/wiki/Thunk) that returns a `Promise`.
+Returns a [thunk](https://en.wikipedia.org/wiki/Thunk) that returns a `Promise`.
 
 #### predicate
 
