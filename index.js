@@ -32,4 +32,5 @@ const pCatchIf = (predicate, catchHandler) => error => {
 };
 
 module.exports = pCatchIf;
+// TODO: Remove this for the next major release
 module.exports.default = pCatchIf;
