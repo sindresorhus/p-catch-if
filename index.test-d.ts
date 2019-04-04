@@ -1,5 +1,5 @@
-import {expectType} from 'tsd-check';
-import pCatchIf from '.';
+import {expectType} from 'tsd';
+import pCatchIf = require('.');
 
 class MyError extends Error {}
 
