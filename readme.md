@@ -1,4 +1,4 @@
-# p-catch-if [![Build Status](https://travis-ci.org/sindresorhus/p-catch-if.svg?branch=master)](https://travis-ci.org/sindresorhus/p-catch-if)
+# p-catch-if
 
 > Conditional promise catch handler
 
