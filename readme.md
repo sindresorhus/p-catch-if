@@ -4,18 +4,16 @@
 
 Useful for handling only some types of errors and let the rest pass through.
 
-
 ## Install
 
 ```
 $ npm install p-catch-if
 ```
 
-
 ## Usage
 
 ```js
-const pCatchIf = require('p-catch-if');
+import pCatchIf from 'p-catch-if';
 
 // Error constructor
 getData().catch(pCatchIf(TimeoutError, () => retry(getData)));
@@ -39,7 +37,6 @@ const validateMessage = error => error.message === 'Too many rainbows';
 getData().catch(pCatchIf(UnicornError, pCatchIf(validateMessage, console.error)));
 ```
 
-
 ## API
 
 ### pCatchIf(predicate, catchHandler)
@@ -62,15 +59,9 @@ Called if `predicate` passes.
 
 This is what you would normally pass to `.catch()`.
 
-
 ## Related
 
 - [p-if](https://github.com/sindresorhus/p-if) - Conditional promise chains
 - [p-tap](https://github.com/sindresorhus/p-tap) - Tap into a promise chain without affecting its value or state
 - [p-log](https://github.com/sindresorhus/p-log) - Log the value/error of a promise
 - [More…](https://github.com/sindresorhus/promise-fun)
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)

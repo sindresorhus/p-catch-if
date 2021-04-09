@@ -1,5 +1,5 @@
 import test from 'ava';
-import pCatchIf from '.';
+import pCatchIf from './index.js';
 
 const fixture = Symbol('fixture');
 const fixtureError = new Error('fixture');

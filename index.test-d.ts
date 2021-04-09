@@ -1,5 +1,5 @@
 import {expectType} from 'tsd';
-import pCatchIf = require('.');
+import pCatchIf from './index.js';
 
 class MyError extends Error {}
 
@@ -44,7 +44,7 @@ expectType<(error: MyError) => string>(
 // Predicate is a function returning a `Promise<boolean>`
 expectType<(error: MyError) => string>(
 	pCatchIf(
-		error => {
+		async error => {
 			expectType<Error>(error);
 			return Promise.resolve(true);
 		},
